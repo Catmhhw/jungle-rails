@@ -5,6 +5,7 @@ RSpec.describe User, type: :model do
 
     it "should" do
       user = User.create(
+        name: "Chloe",
         email: "buttercake@email.com",
         password: "password",
         password_confirmation: "password"
