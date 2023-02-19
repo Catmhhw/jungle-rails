@@ -69,11 +69,25 @@ RSpec.describe User, type: :model do
 
   end
 
-
   describe '.authenticate_with_credentials' do
-    
+    before do
+      @user = User.create(
+        name: 'Chloe',
+        email: 'buttercake@email.com',
+        password: 'password',
+        password_confirmation: 'password'
+      )
+    end
+
+    it 'authenticates with leading/trailing white space in email' do
+      authenticated_user = User.authenticate_with_credentials(' buttercake@email.com ', 'password')
+      expect(authenticated_user).to eq(@user)
+    end
+
+    it 'authenticates with wrong case for email' do
+      authenticated_user = User.authenticate_with_credentials('BUTTERCAKE@email.com', 'password')
+      expect(authenticated_user).to eq(@user)
+    end
   end
-
-
 
 end
